@@ -1,0 +1,54 @@
+ANNOUNCEMENTS
+Assignment #2 this friday
+No lab on friday, discussing presentation #1, will be a group project
+No class Monday
+
+INTEGER ERRORS
+Conversions can lead loss of data
+Widening
+ - convert from narrow type to a wider type
+ - if source is unsigned, propagates 0s
+ - if source is signed, propagates sign bit
+Narrowing
+ - always truncates
+
+When do conversions happen
+ - simple conversion
+  - type cast
+  - assignment
+  - funciton call
+  - fucntion return
+ - integer promotions
+ - standard arithmatic conversions
+
+Errors
+ - integer overflow/underflow
+ - type conversion
+
+Integer Promotion
+smaller data types are promoted to a larger data type when operations are performed on them
+integer converions rank
+ ^ long long int
+ ^ long int
+ ^ int
+ ^ short \
+ ^ char   will be promoted
+ ^ bool  /
+requesites
+ - only works on integers
+ - only works on types smaller than int
+
+Arithmetic converion
+ - +,-,*,/,%,...
+ - <,>,<=,>=,==,!=
+ - &,^,|
+ - ? operator
+converts two operand to have the same type in order to combine them
+rules
+ 1 floating points take precedence
+  - double <= float <= int
+ 2 apply integer promotion
+ 3 same signs are promoted to the larger type
+ 4 unsigned >= signed, the signed is promoted then converted to unsigned
+ 5 unsigned < signed, if lossless narrowing is possible, then narrow signed integer to unsigned
+ 6 otherwise narrow unsigned and cause LOSS

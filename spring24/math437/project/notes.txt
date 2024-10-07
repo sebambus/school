@@ -1,0 +1,19 @@
+METHODS
+ - NODE to approximate species dynamics
+ - BNGM to fit NODEs in seconds
+ - Ecological interactions are gleened from the effects of species density on dynamics
+
+ NEURAL ORDIANRY DIFFERENTIAL EQUATIONS
+ Benefits
+  - non-parametric, so not subject to incorrect specifications
+  - dynamical, meaning it is continuous and can have emergent behavior that can simulate lag effects
+ Example SLP NODE
+  y' = tanh(b1 + W1(S(b2 + W2y)))
+  where W1 and W2 are weight matrices
+	b1 and b2 are bias vectors
+	S(y) is the sigmoid function
+  tanh and S can be replaced by other functions with similar properties
+  y' can be replaced with y'/y to approimate per capita growth rate instead of general growth rate
+
+ BAYESIAN NEURAL GRADIENT MATCHING
+ 

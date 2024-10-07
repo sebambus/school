@@ -1,0 +1,43 @@
+ASSIGNMENT #1
+should be pretty basic
+using system calls
+
+How to Submit
+using cscheckin
+login in to one of the class linux servers
+use c/cpp
+ideally use the format progX.c/cpp
+
+due monday 2/5
+
+MANUAL
+Sections
+ 1 executables
+ 2 system calls
+ 3 library calls
+ 4 special files
+ 5 file formats
+ 6 games
+ 7 miscellaneous
+ 8 system administration
+ 9 kernel routines
+this is also the order of search
+
+WRITING PROCESSES
+```
+#include <stdio.h> //could use std::cout instead
+#include <sys/types.h>
+#include <unistd.h>
+
+void main(char* arr) {
+  printf("Process ID: %ld\n", (long))
+}
+```
+
+Command Line Arguments
+char *arr[7];
+an array of pointers to char
+
+arr[3] = "Hello world!";
+sets arr[3] to a pointer to the first char of "Hello world!"
+arr[3][8] or *(arr[3] + 8) is R	                       ^

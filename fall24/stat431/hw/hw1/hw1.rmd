@@ -1,0 +1,49 @@
+---
+title: "Homework 1"
+subtitle: "STAT 431"
+author: "Sebastian Nuxoll"
+output: pdf_document
+date: 09-03-2024
+toc: true
+toc-depth: 3
+---
+
+`r library(lorem)`
+
+# Header
+`r ipsum()`
+
+---
+
+## Subheader
+`r ipsum()`
+
+---
+
+### Subsubheader
+`r ipsum()`
+
+---
+
+#### Subsubsubheader
+`r ipsum()`
+
+```{r}
+library(dplyr)
+
+pred1=runif(40, -10, 10)
+frame = data.frame(group=rep(c("Ctrl", "Trt"), each=20),
+                   replicate=rep(c("A", "B"), each=10, times=2),
+                   Predictor1=pred1,
+                   Measurement=pred1*4-1+rnorm(40, 0, 3))
+summary(frame)
+summary(subset(frame, group == "Ctrl"))
+
+guitars = read.csv("GuitarModels.csv")
+guitars = guitars[order(guitars$Introduced, guitars$Maker),]
+head(guitars)
+
+subset(guitars, Introduced >= 2000) %>% group_by(Maker) %>% summarize(MeanYear=mean(Introduced), n=n())
+
+subset(guitars, !intersect(c("Jimi Hendrix", "Jimmy Page", "Eric Clapton", "George Harrison", "Thom Yorke"), c(NotableUser1, NotableUser2, NotableUser3)).empty())
+```

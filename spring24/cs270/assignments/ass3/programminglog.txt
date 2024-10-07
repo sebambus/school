@@ -1,0 +1,16 @@
+SATURDAY
+3:00 Code up calculator
+3:30 Add string processing
+4:00 Code client
+5:00 Code server
+5:45 Code makefile
+6:00 Troubleshoot client server connection.
+7:30 Done for the day
+
+SUNDAY
+2:00 Continue troubleshooting client server connection
+2:30 Change IP address being used (fixes it)
+2:45 Troubleshoot server code
+3:15 Fix typo (wrote socket instead of sock)
+3:30 Clean up programming log
+3:45 DONE!

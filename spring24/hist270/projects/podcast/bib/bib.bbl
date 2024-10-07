@@ -1,0 +1,9 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Livy}{Livy}{1912}]{livy}
+Livy, T. (1912).
+\newblock {\em Ab urbe condita}.
+\newblock Royal Classics.
+ \begin{quotation}\noindent Used for stuff. \end{quotation}
+
+\end{thebibliography}

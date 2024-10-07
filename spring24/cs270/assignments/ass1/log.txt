@@ -1,0 +1,10 @@
+PROGRAMMING LOG
+Sunday
+7:00 | write program design
+7:15 | start the makearg function
+7:45 | troubleshoot memory allocation
+8:15 | troubleshoot string processing
+8:30 | start the main function
+8:45 | troubleshoot freeing memory
+9:00 | update documentation (design/log/comments)
+9:15 | DONE

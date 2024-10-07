@@ -1,0 +1,97 @@
+---
+title: "Homework 2"
+subtitle: "STAT 431"
+author: "Sebastian Nuxoll"
+output: pdf_document
+date: 09-13-2024
+---
+
+```{r setup, echo = F}
+knitr::opts_chunk$set(echo = F)
+knitr::opts_chunk$set(warning = F)
+```
+
+## Manually Calculated Regression Line
+
+```{r}
+x <- readRDS("NumItems.rds")
+y <- readRDS("Time.rds")
+
+xbar <- mean(x)
+ybar <- mean(y)
+x2 <- mean(x*x)
+y2 <- mean(y*y)
+xy <- mean(x*y)
+
+m <- (xy-xbar*ybar)/(x2-xbar*xbar)
+b <- ybar-m*xbar
+corr <- (xy-xbar*ybar)/sqrt(x2-xbar*xbar)/sqrt(y2-ybar*ybar)
+R2 <- corr*corr
+ser <- sqrt(y2-2*b*ybar-2*m*xy+b*b+2*b*m*xbar+m*m*x2)
+sem <- ser/10/sqrt(x2-xbar*xbar)
+seb <- sem*sqrt(x2)/10
+```
+We can calculate the moments: $\overline{x}=$ `r xbar`, $\overline{y}=$ `r ybar`, $\overline{x^2}=$ `r x2`, $\overline{y^2}=$ `r y2`, and $\overline{xy}=$ `r xy`. This means the regression line has a slope of `r m` and an intercept of `r b`. It has and $R^2$ of `r R2` and a $\rho$ of `r corr`. We can computer the standard errors of the line parameters as well. The SE of slope is `r sem`. The SE of the intercept is `r seb`. The SE of the residuals is `r ser`.
+
+```{r}
+plot(x, y)
+abline(b, m)
+```
+
+## Computer Calculated Regression Line
+
+We can run these calculations easily in R using the ```lm()``` command to create a ```model``` object. The ```model``` object gives us easy access to various statistics with the ```summary()``` command. Here are those statistics:
+```{r}
+library(ggplot2)
+
+linearmodel <- lm(y ~ x)
+summary(linearmodel)
+```
+---
+The ```model``` object also allows us to easily create confidence intervals around our regression line, as shown below.
+
+```{r}
+yhat <- predict(linearmodel, interval="confidence", level=0.8)
+ggplot(cbind(data.frame(x, y), yhat), aes(x, y)) +
+    geom_ribbon(aes(ymin=lwr, ymax=upr), fill="grey70") +
+    geom_point() +
+    geom_line(aes(x, fit))
+```
+
+## T and P values
+```{r}
+t1 <- (coef(linearmodel)[2]-1)/summary(linearmodel)$coefficients[2,2]
+p1 <- pt(t1, 98, lower.tail = FALSE)
+
+t2 <- (coef(linearmodel)[1]-15)/summary(linearmodel)$coefficients[1,2]
+p2 <- 2*pt(t2, 98)
+
+ci <- confint(linearmodel, level = 0.65)
+```
+$H_0:\beta_1<1,H_a:\beta_1\geq1$ gives us a $t$-value of `r t1` and a $p$-value of `r p1`.
+
+$H_0:\beta_0=15,H_a:\beta_0\neq15$ gives us a $t$-value of `r t2` and a $p$-value of `r p2`.
+
+The 65% confidence interval for the slope is (`r ci[2,]`).
+
+## Square Root Based Model
+The ```lm()``` allows us to fit not just lines, but a variety of curves. We can try this out by fitting a square root graph to the data. We compare that to our linear model in the plot below.
+
+```{r}
+rootmodel <- lm(y ~ sqrt(x))
+
+yhat <- predict(rootmodel, interval="confidence", level=0.8)
+#ggplot(cbind(data.frame(x, y), yhat), aes(x, y)) +
+#    geom_ribbon(aes(ymin=lwr, ymax=upr), fill="grey70") +
+#    geom_point() +
+#    geom_line(aes(x, fit))
+```
+
+```{r}
+ggplot(data.frame(x, y, y1=predict(linearmodel), y2=predict(rootmodel))) +
+    geom_point(aes(x, y)) +
+    geom_line(aes(x, y1), color="red") +
+    geom_line(aes(x, y2), color="blue")
+```
+
+I would say that the square root model fits the data better, as it has an $R^2$ value of `r summary(rootmodel)$r.squared`, while the linear model has an $R^2$ value of only `r R2`.

@@ -1,0 +1,44 @@
+Find joint density, take log, get Log Likelyhood
+
+dl/du = 1/s*sum(x_i-u)
+dl/ds = -n/2 + 1/2s^2*sum((x_i-u)^2)
+
+Find the two partials:
+ - dl/du = 0
+ - dl/ds  = 0
+RESULTS:
+x_bar = 1/n*sum(x_i)
+s_hat = sum((x_i-x_bar)^2)/n
+
+To confirm its a maximum, take the determinant of the Hessian
+	| d^2l/du^2  d^2l/duds |
+	| d^2l/dsdu  d^2l/ds^2 |
+if D > 0 && f_(u&&s) > 0
+then minimum
+if D > 0 && f_(u||s) < 0
+then maximum
+if D < 0
+then saddle
+
+EXAMPLE:
+PMF (x~Pois(lam))
+	P(X=k) = lam^k*e^-lam/k!
+JDF:
+	P(k_1...k_n, lam) = prod(lam^k_i*e^-lam/k_i!)
+		= lam^sum(k_i)*e^-nlam*prod(1/k_i!)
+LL:
+	sum(k_i)*log(lam)-nlam-sum(log(k_i!))
+
+dl/dlam = sum(k_i)/lam-n = 0
+lam_hat = n/sum(k_i)
+d^2l/dlam^2 = -sum(k_i)/lam^2
+is negative, therfore ther is a maximum
+
+Bias:
+	E(lam_hat) - lam = E(sum(k_i)/n) - lam
+		= sum(E(k_i))/n - lam = sum(lam)/n - lam
+		= nlam/n - lam = 0
+MSE:
+	V(lam_hat) + B^2(lam_hat) = V(sum(k_i)/n)
+		= sum(V(k_i))/n^2 = nlam/n^2
+		= lam/n

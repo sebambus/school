@@ -1,0 +1,15 @@
+Server Side
+sebambus@ubuntupad:~/school/spring24/cs270/assignments/ass3$ ./server
+socket created
+socket initialized
+binded
+listening
+created read socket
+read expression: 5 5 6 + + 3 4 * -
+sent answer: 4
+
+Client Side
+sebambus@ubuntupad:~/school/spring24/cs270/assignments/ass3$ ./client
+Connecting...
+> 5 5 6 + + 3 4 * -
+Answer: 4

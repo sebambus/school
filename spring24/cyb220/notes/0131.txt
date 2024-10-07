@@ -1,0 +1,76 @@
+READING
+Chap. 6 now, Chap. 5 coming up
+
+META CHARS
+Metadata:
+accompanying data
+ - NUL terminator
+ - EOL chars
+ - / or . in paths
+ - @ in email addresses
+
+Path Meta Chars
+very common vulnerabilities
+hierarchy delimiter
+ - / in UNIX
+ - \ in Windows
+
+paths can be represented as strings with an absolute path
+ex.
+  C:\\WINDOWS\system32\calc.exe
+can also be accessed with
+  C:\\WINDOWS\system32\drivers\..\calc.exe
+
+The Dot-Dot-Slash Attack
+passing ../ repeatedly to gain access to parent directories allowing access outside the subdirectory
+ex.
+  open(FH, "</users/profiles/$username");
+   - vulnerable to ../ inputs
+
+Shell Meta Chars
+extenstive list of meta chars
+  ; | & < > ` etc.
+
+SQL Queries
+SQL is a language for interacting with relational database management systems (RDBMSs)
+incorrect handling can be very dangerous, SQL injection
+example SQL code:
+  SELECT * FROM users WHERE name = 'Williams';
+   - returns all records with 'Williams' in name
+  QUERY = "SELECT * FROM trans WHERE acct = '" + acctNum + "';
+    can be attacked with
+  QUERY = "SELECT * FROM trans WHERE acct = '' OR '1' = '1';
+
+Web App Example
+SELECT * FROM logintable WHERE user='" . $username . "' and pass='" . $password . "'
+malicious input:
+  $username = bob' OR user<>'bob
+  $password = bob' OR user<>'bob
+result:
+  SELECT * FROM logintable WHERE user='bob' OR user<>'bob' AND pass='bob' OR pass<>'bob'
+
+FILTERING
+important for anything with metachars
+options:
+ - reject an apparent attack
+ - strip dangerous chars
+ - encode chars as friendly chars
+
+Rejection
+relatively safe, but unfriendly
+
+Stripping
+Filters require care
+Very flexible, more friendly
+
+types of filters
+ - blacklist
+ - whitelist
+
+Encode
+filters require more care
+most friendly, creates and arms race
+generally adds escapes to the strings
+other endcodings
+ - URL encoding
+ - HTML/XML encoding

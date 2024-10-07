@@ -1,0 +1,6 @@
+PROGRAMMING LOG
+Monday
+7:00 Write up functions
+7:15 Find sizes/addresses/etc.
+7:45 Clean up code/log/report
+8:00 DONE!

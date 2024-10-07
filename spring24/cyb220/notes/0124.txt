@@ -1,0 +1,28 @@
+C STRING VULNERABILITIES
+ - Uses null terminator '\0'
+ - Can have buffer overflow
+
+FUNCTIONS
+ - sprintf()
+int sprintf(char* str, char* format)
+prints a formatted string to a formattd buffer
+
+ - strcpy()
+char* strcpy(char* dst, char* src)
+copies a string from src to dst
+problems when src is larger than dst
+
+ - strcat()
+char* strcat(char* dst, char* src)
+appends str to dst
+problems when src + dst is larger than dst
+
+ - strncpy()
+char* strncpy(char* dst, char* src, size_t n)
+similar to strcpy, prevents buffer overflow
+missing null terminator when src is larger than n
+
+ - strncat()
+char* strncat(char* dst, char* src, size_t n)
+similar to strcat, prevents buffer overflow
+missing null terminator when src is larger than n
