@@ -1,0 +1,14 @@
+TALK TO DR. SONG AFTER CLASS
+
+TYPE CONVERSION VULNERABILITIES
+Signed/Unsigned Conversions
+be aware of signed converions
+the bits don't change, so negatives become large numbers and visa versa
+size_t is unsigned, and used throughout the C std
+size_t sizeof()
+
+Sign Extension
+
+Truncation
+
+Comparisions

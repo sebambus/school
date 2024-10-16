@@ -1,0 +1,50 @@
+CS CLUB
+JEB Think Tank
+Thursday 4:00
+
+C COMPILER
+cc/gcc gnu compiler
+industry standard
+
+cc command internals:
+ - cpp (preprocessors)
+   takes file.c; oputputs file.i
+ - c1 (C compiler)
+   takes file.i; outputs file.s
+ - as (assembler)
+   takes file.s; outputs file.o
+ - ld (linker)
+   takes file.o & libraries; outputs a.out
+summarized; many new compilers use smaller phases, especially recently
+
+ELF (executable and linkable format)
+relocatable object anatomy:
+ - elf header
+ - .text
+ - .rodta
+ - .data
+ - .bss
+ - .symtab
+ - .rel.text
+ - .rel.data
+ - .debug
+ - .line
+ - .strtab
+ - section header table
+
+executable is similar
+ - elf header
+ - segment header table
+ - .init    \
+ - .text    | read-only (code)
+ - .rodata  /
+ - .data   \
+ - .bss    / read-write
+ - .symtab
+ - .debug
+ - .line
+ - .strtab
+ - section header table
+strip command removes unneeded components of the executable file
+
+

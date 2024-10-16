@@ -1,0 +1,13 @@
+INPUT STREAM FUNCTIONS
+ - gets()
+char* gets(char* str)
+reads until '\n' or EOF and stores them in str
+DANGEROUS: will continue beyond the end of the buffer, causing memory overwrite
+
+ - fgets()
+char* fgets(char* str, int num, FILE* stream)
+reads in num-1 chars, stores them in str, and appends a null terminator
+
+ - getchar()
+char getchar(void)
+reads a single char from an input stream

@@ -1,0 +1,100 @@
+---
+title: "Homework 3"
+subtitle: "STAT 431"
+author: "Sebastian Nuxoll"
+output: pdf_document
+date: 10-06-2024
+---
+# Data Clean up
+
+We are looking at a dataset from a .txt file that is formatted similar to a .csv file. We can read it in using `read.csv`, but this will result in some irregularities in the data frame. The column names are in single quotes, as are all of the entries in the `Crop` column. Both of these can be fixed with the `gsub` command. The `Crop` column is also imported as a list of strings, but for our purposes, it would be better as a list of factors. This can be accomplished with the `as.factor` command. We can now see the formatted data below:
+
+```{r}
+# I had to type out the full file path because my ide was being weird
+# On other machines, this should just be the file name
+dat <- read.csv("~/school/fall24/stat431/hw/hw3/ex12-35.txt", check.names = F)
+colnames(dat) <- gsub("'", "", colnames(dat))
+dat$Crop <- as.factor(gsub("'", "", dat$Crop))
+head(dat)
+```
+
+We can now easily plot the data:
+
+```{r}
+library(ggplot2)
+ggplot(dat, aes(x = SoilMerCon, y = PlantMerCon, color = Crop, shape = Crop)) +
+  geom_point()
+```
+
+# Building Model
+
+We use `model.matrix` to create a design matrix for a model where each crop has its own intercept and slope. The matrix encodes how each crop and the soil mercury concentration contribute to predicting the plant mercury concentration. The hat matrix maps observed responses (plant mercury concentration) to the predicted responses in linear regression. We calculate it using the formula $H=X(X^TX)^{-1}X^T$, where $X$ is the design matrix.
+
+```{r}
+x <- model.matrix(~ Crop * SoilMerCon, data = dat)
+x_hat <- x %*% solve(t(x) %*% x) %*% t(x)
+```
+
+The predicted plant mercury concentration values are calculated by multiplying the hat matrix by the observed response vector (plant mercury concentration). This gives the predictions from the model. The parameter estimates are calculated using the formula $\beta=(X^TX)^{-1}X^TY$.
+
+```{r}
+y_hat <- x_hat %*% dat$PlantMerCon
+beta <- solve(t(x) %*% x) %*% t(x) %*% dat$PlantMerCon
+```
+
+```{r}
+rss <- sum((dat$PlantMerCon - y_hat)^2)
+tss <- sum((dat$PlantMerCon - mean(dat$PlantMerCon))^2)
+regss <- tss-rss
+
+df <- nrow(dat) - length(beta)
+r2 <- rss/df
+```
+
+We calculate the residual sum of squares (RSS), total sum of squares (TSS), and regression sum of squares (RegSS). These quantities are used to assess how well the model fits the data. RSS (`r rss`) measures the unexplained variance and TSS (`r tss`) measures the total variance in the data, so RegSS (`r regss`) is the variance explained by the model. The $R^2$ value is RegSS divided by the degrees of freedom, which is `r r2`
+
+```{r}
+betase <- sqrt(diag(solve(t(x) %*% x) * r2))
+tvals <- beta / betase
+pvals <- 2 * pt(-abs(tvals), df)
+
+f <- regss / (length(beta)-1) / r2
+pf <- pf(f, length(beta)-1, df, lower.tail = F)
+```
+
+The t-values are calculated for each parameter to test whether the parameter is significantly different from zero. The t-value for `SoilMerCon` is `r tvals[4]`, which is quite high, suggesting that the primary correlation is that more mercury in the soil means more mercury in the plant. The t-values for corn and wheat by themselves (`r tvals[2]` and `r tvals[3]` repectively) are close to zero, meaning that with no mercury in the soil, there isn't significantly more mercury in corn or wheat than barley. The t-values for wheat and corn along `SoilMerCon` (`r tvals[5]` and `r tvals[6]` repectively) are reasonably large, meaning wheat absorbs more mercury from the soil than barley, and corn absorbs more than both of them.
+
+The p-values correspond to the probability of observing a t-value as extreme as the one calculated, assuming the null hypothesis is true (i.e., the coefficient is zero). We can see that the smaller p-values correspond with larger t-values. The F-value is used to test whether all the slopes  are equal to zero. The p-value for the F-value assesses the significance of the F-value. The p-value of F is `r pf` which is incredibly small and provides a lot of evidence that there is a underlying relationship.
+
+With this analysis, we can find the equations for fit lines for each of our crops. For barley, we have $y=`r beta[4]`x+`r beta[1]`$. For corn, we have $y=`r beta[4]+beta[5]`x+`r beta[1]+beta[2]`$. For wheat, we have $y=`r beta[4]+beta[6]`x+`r beta[1]+beta[3]`$. We can see how these lines compare to our data in the plot below:
+
+```{r, echo=F}
+ggplot(dat, aes(x = SoilMerCon, y = PlantMerCon, color = Crop, shape = Crop)) +
+  geom_point() +
+  geom_abline(slope = beta[4], intercept = beta[1], color = 2) +
+  geom_abline(slope = beta[4] + beta[5],
+              intercept = beta[1] + beta[2], color = 3) +
+  geom_abline(slope = beta[4] + beta[6],
+              intercept = beta[1] + beta[3], color = 4)
+```
+
+# Building Model w/ `lm()`
+
+```{r}
+model <- lm(PlantMerCon ~ Crop * SoilMerCon, data = dat)
+redmodel <- lm(PlantMerCon ~ SoilMerCon + Crop:SoilMerCon, data = dat)
+anovares <- anova(redmodel, model)
+```
+
+We can create two different models with the `lm` function. One has different slopes and intercepts for each crop, while the other has only one intercept that is used for all the crops. We can compare these plots using `anova` to see if the distinct intercepts provide a significant improvement. Our anova gives us a p-value of `r anovares$"Pr(>F)"[2]`, which is enough to warrant using the more complicated model with multiple intercepts. We compare out model to our data with an 85% prediction interval in the plot below:
+
+```{r, echo=F}
+# Add lines from best model
+pred <- predict(model, newdata = dat, interval = "prediction", level = 0.85)
+dat <- cbind(dat, pred)
+
+ggplot(dat, aes(x = SoilMerCon, y = PlantMerCon, color = Crop, shape = Crop)) +
+  geom_point() +
+  geom_line(aes(y = fit)) +
+  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2)
+```

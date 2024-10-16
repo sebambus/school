@@ -1,0 +1,56 @@
+EXAM SUMMARY
+ - Monday
+ - Online, 1-hour
+ - Mostly T/F or Multiple Choice, probably 1 short answer/essay
+Topics: Chap. 1/2/~3
+ - History
+ - Operating Systems
+ - Processes
+
+ARCHITECTURE
+--Windows--
+Kernel Mode Processes:
+User Mode Processes:
+ - Special System
+ - Service
+ - Environment Subsystems
+  - Win32: standard windows environment
+  - POSIX: added from regulation pressure
+ - Applications
+
+--Unix--
+Hardware
+Kernel Level:
+ - PCS
+  - Scheduler
+  - Memory Management
+  - Interprocess communication
+ - File Subsystem: popularized by unix
+ - Device Drivers: treats devices like files stored in /dev
+  - block: buffered by a cache (starts with b)
+  - character: one byte at a time (starts with c)
+User Level:
+ - Libraries
+ - User Programs
+
+PROCESSES
+Process: an instance of a program running on a computer
+Characterized by the execution of an a.out, a state, and system instructions/context
+
+Elements:
+ - ID (Unix: PID)
+ - State
+ - Priority
+ - PC (program counter)
+ - Pointers
+ - Context
+ - I/O status
+ - Accounting (duration, etc.)
+
+PCB (Process Control Block)
+Stores all elements
+Represents the full process
+
+2-State Model
+Toggles between running/not running
+Runs a queue of processes - each item is moved to the back of the queue at timeout/io/etc.

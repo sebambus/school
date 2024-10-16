@@ -1,0 +1,75 @@
+ANNOUNCEMENTS
+Read Chap 5&6
+Office hours:
+  Mon 11:30 - 12:15
+  Thu  2:00 -  3:00
+
+LAB BUG
+Look for 44/55. That means the values are store on the stack, and can be accessed there.
+
+REVIEW
+Metacharacter Filtering
+3 options
+ - reject
+ - strip
+ - encode
+
+BUFFER OVERFLOW
+Memory Corruption:
+ - vulnerability where contents of a memory location are altered by explicit assignment
+Buffer Overflow:
+ - software bug where data copied to a location exceeds size of destination, allowing excess data to overwrite adjacent memory
+
+Heap Summary
+ - dynamic memory alloctions at runtime
+ - grows down towards high addresses
+ - slower, manual
+Stack Summary
+ - fixed memory allocation at compile time
+ - grows up towards low addresses
+ - faster, automatic
+
+Types of Overflow
+ - heap
+ - stack
+ - global
+ - static
+
+RUNTIME STACK
+the call stack
+stores functions and their variables
+each function frame has a pointer to the previous function frame
+special register, extended base pointer (ebp), points to the current function frame
+
+Stack Frames
+ 1 arguments
+ 2 return address
+ 3 previous frame pointer
+ 4 local variables
+
+ex.
+void func(char a, char b) {
+	char x,y;
+	x = a + b;
+	y = a - b;
+}
+
+stack:
+0xffff - b
+0xfffe - a
+0xfffd - \
+...       return address
+0xfffa - /
+0xfff9 - \
+...       previous frame pointer
+0xfff6 - /
+0xfff5 - x
+0xfff4 - y
+
+Stack Overflow
+ - local variables
+ - previous frame pointer
+ - return address
+ - previous stack frames
+
+generally used to make the return address point to some "shellcode"

@@ -1,0 +1,508 @@
+---
+title: "Exam 2 - Stat 431"
+author: "Sebastian Nuxoll"
+date: "14 Oct 2024"
+output: 
+  pdf_document:
+    includes:
+      in_header: preamble.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE)
+```
+
+
+1. Assume that you want to model the relationship between weight (as the response variable), age, height, and nationality for individuals from US, Canada, and Mexico. Assume that there is an interaction between height and nationality. 
+
+ - Write down the correct R formula to run this model.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```
+model <- lm(weight ~ age + height + nationality + height:nationality, dat)
+```
+<!-- Place answer above-->
+
+--------------- 
+
+ - How many parameters would be estimated in this model?
+ 
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+There should be 6 parameters that need to be estimated: an intercept, one slope for age, another for height, two slopes for nationality, since it is categorical, and 2 interactions between height and nationality.
+<!-- Place answer above-->
+
+--------------- 
+
+ - Giving the estimated slopes names such as $\beta_{\text{US}}$ for the effect of living in the US or $\beta_{\text{Age} \times \text{Height}}$ for an interaction slope, and indicate variable values by the variable name, write down the 3 equations for the 3 estimated lines. 
+ 
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->
+Where $A$ is age and $H$ is height:
+$$W=\beta_0+\beta_AA+\beta_HH+\beta_{US}+\beta_{H\times US}H$$
+$$W=\beta_0+\beta_AA+\beta_HH+\beta_{Canada}+\beta_{H\times Canada}H$$
+$$W=\beta_0+\beta_AA+\beta_HH+\beta_{Mexico}+\beta_{H\times Mexico}H$$
+<!-- Place answer above-->
+
+--------------- 
+
+ - Assume that you have the following observation: Weight=80kg, Age=18yo, Height=188cm, Nationality=Mexico. Write down the row in the *model matrix* that would correspond to this observation. Label the "column" according to the subscripts you put on the slopes in the previous part. For example, if you were looking at a age and height interaction, the "column" for this would look like "Age x Height" = 3384. You should have the same number of "columns" as you do parameters in your model. 
+ 
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r, echo=F}
+library(knitr)
+kable(data.frame(Intercept = 1,
+                 Age = 18,
+                 Height = 188,
+                 Canada = 0,
+                 Mexico = 0,
+                 HeightXCanada = 0,
+                 HeightXMexico = 188))
+```
+<!-- Place answer above-->
+
+--------------- 
+
+2. You get the following output from R:
+
+```
+anova(m2,m1)
+
+## Analysis of Variance Table
+##
+## Model 1: PlantMercuryConc ~ SoilMercuryConc/Crop
+## Model 2: PlantMercuryConc ~ Crop * SoilMercuryConc
+##   Res.Df   RSS Df.  SumofSq      F  Pr(>F) 
+## 1     86 14948
+## 2     84 14925  2    23.345 0.0657 0.9365
+```
+
+ - Which model should you favor? Why?
+ 
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+We can see that we have an F value of 0.0657, which is tiny, and a p value of 94%, which is almost 1, meaning the second model make minimal improvements, and we should stick to the first model.
+<!-- Place answer above-->
+
+--------------- 
+
+ - What does the `Df = 2` mean? (How is it calculated?)
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+`Df` is the number of extra parameters the second model has over the first model. In this case, the second model has two extra parameters.
+<!-- Place answer above-->
+
+--------------- 
+
+ - Using the numbers given in the table, how do you calculate the F value given in the table? (i.e. actually write down the equation)
+ 
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+$$F=\frac{\frac{SumofSq}{Df}}{\frac{RSS_2}{Res.Df_2}}=\frac{\frac{23.345}{2}}{\frac{14925}{84}}=\frac{11.673}{177.679}=0.0657$$
+<!-- Place answer above-->
+
+---------------
+
+ - Write the R command that would yield the $p = 0.9365$ displayed in the table.
+ 
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```
+anova(m2,m1)[6][2]
+```
+<!-- Place answer above-->
+
+--------------- 
+
+3. Read in the files `ModelMatrix.rds` and `ResponseVar.rds` as `X` and `y`, respectively. Using those variables answer the following. DO NOT USE LM TO ANSWER ANY PART OF THIS QUESTION. You must show your R code for each calculation.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r}
+X <- readRDS("ModelMatrix.rds")
+y <- readRDS("ResponseVar.rds")
+```
+<!-- Place answer above-->
+
+---------------
+
+- Using $\mathbb{X}$ find the hat matrix.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r}
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+```
+<!-- Place answer above-->
+
+---------------
+
+- Using the hat matrix, find the predicted values of $y$ for this model.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r}
+predy <- H %*% y
+```
+<!-- Place answer above-->
+
+---------------
+  
+- Using $\mathbb{X}$ find the parameter estimate vector.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r}
+betahat <- solve(t(X) %*% X) %*% t(X) %*% y
+```
+<!-- Place answer above-->
+
+---------------
+
+- Calculate the residual, regression, and total sums of squares using the *linear algebra* operations. (i.e. use vectors and their transposition to get the sums of squares)
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r}
+RSS <- t(y - predy) %*% (y - predy)
+RegSS <- t(predy) %*% predy
+TSS <- t(y) %*% y
+```
+RSS: `r RSS`
+
+Regression SS: `r RegSS`
+
+TSS: `r TSS`
+<!-- Place answer above-->
+
+---------------
+
+- Calculate the residual standard error $\sigma_\epsilon$.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r}
+df <- nrow(X)-ncol(X)
+RSE <- sqrt(RSS/df)
+```
+RSE: `r RSE`
+<!-- Place answer above-->
+
+---------------
+
+- Using $(\mathbb{X}^T\mathbb{X})^{-1}$, find the standard error of the parameter estimates.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r}
+covmat <- solve(t(X) %*% X)
+paramse <- sqrt(diag(covmat)) * RSE
+kable(t(paramse))
+```
+<!-- Place answer above-->
+
+---------------
+
+- Find the t-values for the hypothesis $H_0: \beta_i = 0, H_a: \beta_i \ne 0$.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r}
+tvals <- betahat / paramse
+kable(t(tvals))
+```
+<!-- Place answer above-->
+
+---------------
+
+- Find the p-values for the t-values.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}}
+<!-- Place answer below-->
+```{r}
+pvals = 2 * pt(-abs(tvals), df=df)
+kable(format(t(pvals)))
+```
+<!-- Place answer above-->
+
+---------------
+
+- What is $R^2$? 
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}}
+<!-- Place answer below-->
+```{r}
+R2 <- RegSS/TSS
+```
+$R^2$: `r R2`
+<!-- Place answer above-->
+
+---------------
+
+- What is the F-value for the hypothesis that all of the slopes are equivalent to 0?
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}}
+<!-- Place answer below-->
+```{r}
+f <- (TSS-RSS)/(ncol(X)-1)/(RSS/df)
+```
+F value: `r f`
+<!-- Place answer above-->
+
+---------------
+
+- What is the p-value for the F-value you just calculated?
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}}
+<!-- Place answer below-->
+```{r}
+p <- pf(f, df1 = ncol(X), df2 = df, lower.tail = F)
+```
+p value: `r p`
+<!-- Place answer above-->
+
+---------------
+
+- What are the leverage values for each observation? Which of the leverage values, if any, are of concern?
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}}
+<!-- Place answer below-->
+```{r}
+kable(t(diag(X)))
+```
+<!-- Place answer above-->
+
+---------------
+
+- What are Cook's D values for each observation? What of the Cook's D values, if any, are of concern?\
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}}
+<!-- Place answer below-->
+```{r}
+cooksd <- ((y - predy) ^ 2 / (p * RSE^2)) * (diag(X) / (1 - diag(X))^2)
+kable(t(cooksd))
+```
+<!-- Place answer above-->
+
+---------------
+
+4. Using the data in Exam2.rds do the following. *The response variable is labelled 'c' in these data.*
+
+
+ -  Using forward selection based on the $\chi^2$ statistic, add variables sequentially to find the best model. The largest model to consider would be one that has all terms and two-interactions between the terms. Use a cutoff value of $p = 0.15$ for a variable to enter the model. Start with a model that is simply the intercept. At each step of the selection process record/calculate: $R^2$, adjusted $R^2$, PRESS, Mallow's Cp,  AIC, and BIC. Put those values in a table. 
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}}
+<!-- Place answer below-->
+```{r}
+dat <- readRDS("Exam2.rds")
+
+form <- c ~ d + T1 +   T2 +   s +   pr +   ne +   ct +   bw +   n +   pt + 
+              d:T1 + d:T2 + d:s + d:pr + d:ne + d:ct + d:bw + d:n + d:pt + 
+                    T1:T2 +T1:s +T1:pr +T1:ne +T1:ct +T1:bw +T1:n +T1:pt + 
+                           T2:s +T2:pr +T2:ne +T2:ct +T2:bw +T2:n +T2:pt + 
+                                  s:pr + s:ne + s:ct + s:bw + s:n + s:pt + 
+                                        pr:ne +pr:ct +pr:bw +pr:n +pr:pt + 
+                                               ne:ct +ne:bw +ne:n +ne:pt + 
+                                                      ct:bw +ct:n +ct:pt + 
+                                                            +bw:n +bw:pt + 
+                                                                  + n:pt
+model <- lm(c~1, dat)
+table <- data.frame()
+repeat {
+  table = rbind(table, c(summary(model)$r.squared,
+                         summary(model)$adj.r.squared,
+                         sum((residuals(model) / (1 - hatvalues(model)))^2),
+                         sum(residuals(model)^2) / summary(model)$sigma^2 - length(coefficients(model)),
+                         AIC(model),
+                         BIC(model)))
+  perms <- add1(model, form, test = "Chisq")
+  if(min(perms$'Pr(>Chi)', na.rm = T) > 0.1) break
+  model <- update(model, as.formula(paste(". ~ . + ", rownames(perms)[which.min(perms$'Pr(>Chi)')])))
+}
+names(table) <- c("$R^2$", "Adj. $R^2$", "PRESS", "Mallow's Cp", "AIC", "BIC")
+kable(table)
+```
+<!-- Place answer above-->
+
+---------------
+
+ - Plot the default diagnostic plots of your best model. Comment on each one of the plots and what you see in them with respect to meeting model assumptions.
+ 
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}}
+<!-- Place answer below-->
+```{r}
+plot(model)
+```
+I'm more than a little confused by the model I've created. It seems to be perfect (or at least drastically overfit). It seems that there is no noise in the data. The plots reflect this, by having no residuals.
+<!-- Place answer above-->
+
+---------------
+
+- Calculate the VIF for each term in your model and make a table of the results. Which term shows the highest collinearity with the others?
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+I don't even need to calculate the VIF, as it'll be 0. Once again, either I did something wrong or there is no noise in the data. The model shouldn't be perfect like this.
+<!-- Place answer above-->
+
+---------------
+
+- Find the 70% prediction interval *at the mean value* of all the predictors in your best model.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+The prediction interval is just a point, since there is no error in the model. I don't know what to say.
+<!-- Place answer above-->
+
+---------------
+
+5. What is the model underlying mulitple regression? First write the model in terms of $\mu_i = f(x_i)$. Then specify how $y_i$ relates to $\mu_i$. From that relationship, find the formula for the residual $\epsilon_i$ and give the distribution for all residuals. Using matrix algebra notation is not required (but nice).
+
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+$$\mu_i=\beta_0+\beta_1+x_{i1}+\beta_2x_{i2}+\dotsb+\beta_kx_{ik}$$
+$$\epsilon_i=y_i-\mu_i=y-\beta_0-\beta_1-x_{i1}-\beta_2x_{i2}-\dotsb-\beta_kx_{ik}$$
+$$\epsilon_i\sim N(0,\sigma^2)$$
+<!-- Place answer above-->
+
+---------------
+ 
+ - How many parameters are we estimating in a multiple regression model? How can we determine this number from the model matrix?
+ 
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+Generally, there is one parameter for the intercept, then one per predictor. This is the width of the model matrix.
+<!-- Place answer above-->
+
+---------------
+
+ - Finally, state what the assumptions are from the model you have outlined above.
+
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+We assume that the relationships are linear, the observations are independent, and that the residuals are normally distributed with a constant variance.
+<!-- Place answer above-->
+
+---------------
+
+6. Assuming we have a model where want to estimate an observer effect; the observers in the data set are Eddie, Claire, Bob, and Sloane. Assume R's default factor encoding to answer the following.
+
+- How many columns will be added to the model matrix if we wish to estimate this effect?
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+Since there are 4 observers, we'll need to add 3 columns.
+<!-- Place answer above-->
+
+---------------
+
+- Which observer will be the base/default level? What does this mean in terms of interpreting model parameters?
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+Bob will be the base, since he comes first alphabetically. This means any effect inherent to Bob will be reflected in the intercept.
+<!-- Place answer above-->
+
+---------------
+
+- Write down a matrix with rows for each observer and the correct number of columns; fill in the dummy encoding given by R.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+```{r, echo=F}
+kable(data.frame(Observer = c('Bob', 'Claire', 'Eddie', 'Sloane'), Claire = c(0,1,0,0), Eddie = c(0,0,1,0), Sloane = c(0,0,0,1)))
+```
+<!-- Place answer above-->
+
+---------------
+
+- If we compare a model with the observer effect versus without, what value of F, at $\alpha = 0.05$, would be required to add the observer effect to the model? Assume there are 30 observations and 10 parameters in the model with the effect. 
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+`qf(0.95, df1 = 3, df2 = 20)`
+
+F value: `r qf(0.95, df1 = 3, df2 = 20)`
+<!-- Place answer above-->
+
+---------------
+
+
+
+
+
+
+
+

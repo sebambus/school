@@ -1,0 +1,112 @@
+UNIX COMMANDS
+vi
+ - basic text editor
+g++
+ - compiles .cpp files
+
+Shells
+sh   -Bourne
+bash -Bourne Again
+csh  -C
+ksh  -Korn
+ssh  -Secure
+zsh  -Z
+bash/ksh are most common
+
+exit
+ - logout
+man
+ - help?
+apropos
+ - info about a function
+pwd
+ - show current directory
+ls
+ - list contents
+cp
+ - copy one file to another
+mv
+ - rename
+rm
+ - remove
+cat
+ - concatenate
+head
+ - top of file
+tail
+ - end of file
+less
+ - page at a time
+more
+ - also page at a time?
+clear
+ - clear screen
+history
+ - list of recent commands
+grep
+ - search for a pattern?
+
+Nav Commands
+
+cd
+ - change directory
+mkdir
+ - make directory
+rmdir
+ - remove directory
+
+special directory names
+~  | Home
+.  | Current
+.. | Parent
+
+Editors
+
+ed
+ - super basic
+vi
+ - standard
+emacs
+ - exstensible
+xemacs
+ - graphical emacs
+nano
+ - easy
+sed
+ - stream
+
+Compilers
+cc
+ - c
+CC
+ - c++
+gcc
+ - gnu c
+g++
+ - gnu c++
+javac
+ - java
+java
+ - java interpreter
+
+Others
+date
+ - current date
+cal
+ - calendar
+wc
+ - word count
+bc
+ - basic calculator
+echo
+ - echos some value (used for shell)
+file
+ - file info
+make
+ - build programs
+elm
+ - email?
+pine???
+
+Directing Files
+< or > to move direct i/o files to programs

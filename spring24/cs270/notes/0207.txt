@@ -1,0 +1,13 @@
+BINARY FILE FORMATS
+a.out
+ - assembler output
+coff
+ - common object file format
+ - unix system 5
+xcoff
+ - extended coff
+ - used in aix
+elf
+ - system 5 r4 (svr4)
+mach-o
+pe

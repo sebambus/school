@@ -1,0 +1,116 @@
+---
+title: "Chapter 13 Homework"
+author: "YOUR NAME"
+date: "`r Sys.Date()`"
+output: 
+  pdf_document:
+    includes:
+      in_header: preamble.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Homework 13
+
+Using the ex13-17.txt data set, answer the following questions. The data set has 4 variables of interest and comes from "The Influence of Temperature and Sunshine on the Alpha-Acid Content of Hops" [Agricultural Meteorology (1974) 12:375-382]. In short, we want to model the alpha acid content (P) with respect to variety (Variety), temperature (T), and sunshine (S); for now, we will ignore the 'Field' variable that is in the data set. We wish to consider models that span:
+
+$$P = \beta_0$$
+to
+
+
+\begin{align*}
+P & = \beta_0 + \beta_1 T + \beta_2 T^2 + \beta_3 S + \beta_4 S^2 + \beta_5 T \times S + \beta_6 \text{Variety} + \\
+  &\beta_7 \text{Variety} \times T + \beta_8 \text{Variety} \times T^2 +  \beta_9 \text{Variety} \times S +  \beta_{10} \text{Variety} \times S^2 + \\
+  & \beta_{11} \text{Variety} \times T \times S
+\end{align*}
+
+
+1. Using forward selection based on the F-statistic, add variables sequentially to find the best model. Use a cutoff value of p = 0.1 for a new variable to enter the model.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+
+<!-- Place answer above-->
+
+---------------
+
+2. Using backward selection based on the $\chi^2$ statistic, drop variables sequentially to find the best model. Use a cutoff value of p = 0.15 for a variable to remain in the model.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+
+<!-- Place answer above-->
+
+---------------
+
+3. Using stepwise selection, start from a model that includes the intercept, temperature, sunshine, and variety. Let the stepwise procedure consider everything from our base model to our full model (given above).
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+
+<!-- Place answer above-->
+
+---------------
+
+4. Create a table that has the following information: There will be 5 rows, one row for each of the chosen models (Q1-3) and a row for the base model and a row for the full model. In the columns give: $R^2$, adjusted $R^2$, PRESS, Mallow's Cp,  AIC, and BIC (so 6 columns of stats, plus one column giving the model name).
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} <!-- Place answer below-->  
+
+<!-- Place answer above-->
+
+---------------
+
+5. Calculate the F-statistic and p-value for the F-statistic to compare the 5 models, as we did in Chapter 12. (So compare them in sequentially increasing order of complexity.)
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+
+<!-- Place answer above-->
+
+---------------
+  
+6. Plot the diagnostic plots of the forward selection model (Q1) and comment on any problems you see and how you might address them.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+
+<!-- Place answer above-->
+
+---------------
+
+7. Make an argument about which model you would choose and why! INTERPRET YOUR MODEL. Are there separate equations for the different varieties? Give stats to support your argument.
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+
+<!-- Place answer above-->
+
+---------------
+
+8. Calculate the VIF for each term in your model and make a table of the results. Which term shows the highest collinearity with the others?
+
+---------------
+
+\colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{ANSWER:}} 
+<!-- Place answer below-->  
+
+<!-- Place answer above-->
+
+---------------
+

@@ -1,0 +1,10 @@
+string of args: Wow, this is a lot of tokens
+Token count: 7
+Wow,
+this
+is
+a
+lot
+of
+tokens!
+

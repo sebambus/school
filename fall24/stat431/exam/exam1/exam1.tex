@@ -1,0 +1,383 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Exam 1},
+  pdfauthor={Sebastian Nuxoll},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Exam 1}
+\author{Sebastian Nuxoll}
+\date{2024-09-16}
+
+\begin{document}
+\maketitle
+
+\hypertarget{initialization}{%
+\section{Initialization}\label{initialization}}
+
+Be sure to enter your name and Vandal number in the YAML header above.
+Then run the chunk below to create your personalized ``analysis\_data''
+for your work. \emph{DO NOT ALTER ANYTHING IN THIS CHUNK.}
+
+Here is what the basic scatter plot of your data looks like:
+
+\includegraphics{exam1_files/figure-latex/Plot data-1.pdf}
+
+\hypertarget{t-table}{%
+\section{t table}\label{t-table}}
+
+Here is a table of hypothetical t-values. Use these in the construction
+of confidence intervals and assignment of p-values. Assume that values
+are ordered \textbf{smallest to largest} when going from \textbf{left to
+right} in the table. The table functions like the \texttt{qt()} and
+\texttt{pt()} commands in R. For example, \texttt{pt(-a,\ 10)} would
+give \texttt{0.025} and \texttt{pt(a,10)} would give 0.975. Similarly,
+\texttt{qt(0.025,10)} would give \texttt{-a}, while
+\texttt{qt(0.975,10)} yields \texttt{a}.
+
+\begin{longtable}[]{@{}lccccccccc@{}}
+\caption{Hypothetical t-values}\tabularnewline
+\toprule
+df & P = 0.025 & P = 0.05 & P = 0.1 & P = 0.2 & P = 0.5 & P = 0.8 & P =
+0.9 & P = 0.95 & P = 0.975\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+df & P = 0.025 & P = 0.05 & P = 0.1 & P = 0.2 & P = 0.5 & P = 0.8 & P =
+0.9 & P = 0.95 & P = 0.975\tabularnewline
+\midrule
+\endhead
+10 & -a & -k & -A & -K & 0 & K & A & k & a\tabularnewline
+20 & -b & -l & -B & -L & 0 & L & B & l & b\tabularnewline
+30 & -c & -m & -C & -M & 0 & M & C & m & c\tabularnewline
+40 & -d & -n & -D & -N & 0 & N & D & n & d\tabularnewline
+50 & -e & -o & -E & -O & 0 & O & E & o & e\tabularnewline
+60 & -f & -p & -F & -P & 0 & P & F & p & f\tabularnewline
+70 & -g & -q & -G & -Q & 0 & Q & G & q & g\tabularnewline
+80 & -h & -r & -H & -R & 0 & R & H & r & h\tabularnewline
+90 & -i & -s & -I & -S & 0 & S & I & s & i\tabularnewline
+100 & -j & -t & -J & -T & 0 & T & J & t & j\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{questions}{%
+\section{Questions}\label{questions}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Assume that \(\bar{x}= 10\), \(\bar{x^2} = 200\), \(\bar{y} = 5\),
+  \(\bar{y^2} = 50\), and \(\bar{xy} = 75\). What are
+  \(\beta_0, \beta_1, \sigma_{\epsilon}, \rho\) and \(R^2\) for the
+  simple regression?
+  \[\beta_1=\frac{\bar{xy}-\bar{x}\bar{y}}{\bar{x^2}-\bar{x}^2}=\frac{75-10(5)}{200-10^2}=\boxed{0.25}\]
+  \[\beta_0=\bar{y}-\beta_1\bar{x}=5-0.25(10)=\boxed{2.5}\]
+  \[\rho=\frac{\bar{xy}-\bar{x}\bar{y}}{\sqrt{(\bar{x^2}-\bar{x}^2)(\bar{y^2}-\bar{y}^2)}}=\frac{75-10(5)}{\sqrt{(200-10^2)(50-5^2)}}=\boxed{0.5}\]
+  \[R^2=\rho^2=0.5^2=\boxed{0.25}\]
+  \[\sigma_\epsilon=\sqrt{(\bar{y^2}-\bar{y}^2)(1-R^2)}=\sqrt{(50-5^2)(1-0.25)}\approx\boxed{4.33}\]
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Now assume that \(x' = x + 4\) and \(y' = y - 2\). Which of the
+  parameters from the previous part changed for the simple regression of
+  \(y'\) on \(x'\)? What are the new values for those parameters that
+  changed?
+\end{itemize}
+
+The only parameter affected is \(B_0\), which becomes
+\(3-0.25(14)=-0.5\)
+
+\begin{itemize}
+\tightlist
+\item
+  Lastly, assume that \(x'' = 2 x\). Again, find which parameters would
+  change and their values for the regression of \(y\) on \(x''\).
+\end{itemize}
+
+\(B_0\), \(B_1\), and \(\sigma_\epsilon\) are all doubled, making them
+5, 0.5, and 8.66 respectively.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What is the model underlying simple regression? First write the model
+  in terms of \(\mu_i = f(x_i)\). Then specify how \(y_i\) relates to
+  \(\mu_i\). From that relationship, find the formula for the residual
+  \(\epsilon_i\) and give the distribution for all residuals.
+  \[\mu_i=\beta_0+\beta_1x_i\]
+  \[y_i-\mu_i=\epsilon_i\sim N(0,\sigma^2)\]
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  How many parameters are we estimating in this simple regression model?
+\end{itemize}
+
+We are estimating 2 parameters: \(\beta_0\) and \(\beta_1\).
+
+\begin{itemize}
+\tightlist
+\item
+  Finally, state what the assumptions are from the model you have
+  outlined above.
+\end{itemize}
+
+We assume that there is a linear relationship between \(x\) and \(y\)
+and that error is identically distributed across the line.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Assume that \(\hat{\beta}_1 = 2\) and \(\sigma_{\hat{\beta}_1} = 4\)
+  in a model based on 42 observations. Using the table provided above,
+  write the 80\% confidence for \(\beta_1\).
+  \[\hat{\beta_1}\pm t_{\alpha/2}\sigma_{\hat{\beta_1}}=\boxed{2\pm4D}\]
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Next, assume we want to test \(H_0: \beta \le 5\), \(H_a: \beta > 5\)
+  at the \(\alpha = 0.05\) uncertainty level. Write the inequality that
+  we would use to decide whether or not to reject \(H_0\). (In other
+  words, if the inequality is \textbf{true} you would reject \(H_0\).)
+  \[\frac{\hat{\beta_1}-5}{\sigma_{\hat{\beta_1}}}>t_{0.05}\Rightarrow\boxed{-0.75>n}\]
+\item
+  Finally, assume we want to test \(H_0: \beta = 1\),
+  \(H_a: \beta \ne 1\) at the \(\alpha = 0.1\) uncertainty level. What
+  is the inequality that we would use to decide whether or not to reject
+  \(H_0\)?
+  \[\left|\frac{\hat{\beta_1}-1}{\sigma_{\hat{\beta_1}}}\right|>t_{0.05}\Rightarrow\boxed{0.25>n}\]
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Given that
+  \(\hat{\beta}_0 = 2, \hat{\beta}_1 = 3, x = 2, n = 82, \sigma_\epsilon = 3, \text{ and } \sigma_{\hat{y}}(x = 2) = 4\).
+  What is the 60\% \textbf{confidence} interval at \(x = 2\)? (Use the
+  hypothetical t table to find the correct values.)
+  \[\hat{\beta_0}+\hat{\beta_1}x\pm t_{\alpha/2}\sigma_{\hat{y}}(x)=2+3(2)\pm4R=\boxed{8\pm4R}\]
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  What is the 95\% confidence interval for a \textbf{prediction} at
+  \(x = 2\)?
+  \[\hat{y}\pm t_{\alpha/2}\sqrt{\sigma_{\hat{y}}^2+\sigma_\epsilon^2}=8\pm r\sqrt{4^2+9^2}=\boxed{8\pm\sqrt{97}r}\]
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Use \texttt{lm()} to perform the simple regression of the dependent
+  variable on the independent variable in the \texttt{analysis\_data}
+  tibble and answer the following the questions:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sum \textless{}{-}}\StringTok{ }\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(analysis\_data}\OperatorTok{$}\NormalTok{dependent }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{analysis\_data}\OperatorTok{$}\NormalTok{independent))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  What is the fraction of variance that is \emph{unexplained} by the
+  model?
+\item
+  What is the slope of the fitted line?
+\item
+  What is the probability that \(\beta_0\) is 0?
+\item
+  Assume that we are interested in whether the slope is greater than 10.
+  Calculate the appropriate t-value. Write the R command that finds the
+  p-value associated with that t-value and the appropriate hypothesis.
+\item
+  Assume that we want to demonstrate that the intercept is not -5.
+  Calculate the appropriate t-value. Write the R command that finds the
+  p-value associated with that t-value and the appropriate hypothesis.
+\item
+  Run another regression that hypothesizes that the dependent variable
+  is related to the \textbf{squared} independent variable. Compare the
+  two models and give an argument as to which model is the best (support
+  your argument with values from the regressions).
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Use \textbf{ggplot} to create the following the plots:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  A plot that has the raw data and the first fitted line from (5).
+\item
+  A plot that has the raw data, the first fitted line from (5), and the
+  \emph{confidence interval} for the line assuming that you want the
+  interval associated with \(t =\pm 1.3\).
+\item
+  A plot that has the raw data, the first fitted line from (5), and the
+  \emph{prediction interval} for the line assuming that you want the
+  interval associated with \(t =\pm 2\).
+\item
+  A plot that has the raw data and \emph{both} of the fitted models from
+  (5).
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Use \texttt{dplyr} commands to do the following:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Sort the analysis data based on the independent variable
+\item
+  Create a new column called ``AB'' that is a factor where 50\% of
+  values are ``A'' and the remainder are ``B''.
+\item
+  Group the variables by ``AB'' and find the mean values of the
+  independent and dependent variables using the \texttt{summarize()}
+  command.
+\item
+  Drop all observations from the data that are in the lower quartile of
+  the dependent variable.
+\item
+  Create a new column called ``Transform'' that contains a mathematical
+  transform of the dependent and independent variables (you can choose
+  whatever function you want).
+\item
+  Create a new tibble that only retains the ``AB'' and the ``Transform''
+  columns.
+\item
+  Print out the summary of this newest tibble.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,30 @@
+RESULTS
+
+Step 1
+            type     size   addr
+main    | function |  221 | 1149
+min     | function |  102 | 128c
+max     | function |  102 | 1226
+sum     | function |   73 | 12f2
+average | function |   69 | 133b
+printf  | function |    0 | 0000
+arr     |   object |  400 | 4020
+
+Step 2
+            type     size   addr
+main    | function |  201 | 1149
+min     | function |   42 | 123c
+max     | function |   42 | 1212
+sum     | function |   45 | 1266
+average | function |   34 | 1293
+printf  | function |    0 | 0000
+arr     |   object |  400 | 4020
+
+Step 3
+            type     size   addr
+main    | function |  264 | 1169
+min     | function |   42 | 129b
+max     | function |   42 | 1271
+sum     | function |   45 | 12c5
+average | function |   34 | 12f2
+printf  | function |    0 | 0000

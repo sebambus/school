@@ -1,0 +1,10 @@
+PROGRAM DESIGN
+I only saw the need to write one function for this program, plus a main function to test it. The process seemed simple enough to condense.
+int makearg(char* s, char*** args);
+This function should process the string s, and create an array at the location of the pointer args that stores each token/word individually. In addition, it should return the number of tokens total.
+This will require three main loops. 
+ - The first loop will walk through the string counting tokens. 
+ - The second will allocate memory for the array of strings, based on the result of the first. 
+ - The third loop will copy each token over to the new array.
+int main();
+This should just test the program on a given input. The only complexity here is to free all of the allocated memory.

@@ -1,0 +1,37 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{David E.~Rumelhart}1986]{backproppaper}
+Ronald J.~Williams David E.~Rumelhart, Geoffrey E.~Hinton.
+\newblock 1986.
+\newblock Learning representations by back-propagating errors.
+\newblock {\em Nature}, 323(6088).
+
+\bibitem[\protect\citename{E.~P.~Odum}1976]{lynxharepaper}
+G.~W.~Barrett E.~P.~Odum.
+\newblock 1976.
+\newblock Fundamentals of ecology.
+\newblock {\em The Journal of Wildlife Management}, 36(4).
+
+\bibitem[\protect\citename{T.~Hiltunen}2013]{tritropicpaper}
+S.~P. Ellner N. G. Hairston~Jr. T.~Hiltunen, L. E.~Jones.
+\newblock 2013.
+\newblock Temporal dynamics of a simple community with intraguild predation: an
+  experimental test.
+\newblock {\em Ecology}, 94(4).
+
+\bibitem[\protect\citename{Willem~Bonaffé}2021]{earlierpaper}
+Tim~Coulson Willem~Bonaffé.
+\newblock 2021.
+\newblock Neural ordinary differential equations for ecological and
+  evolutionary time- series analysis.
+\newblock {\em Methods in Ecology and Evolution}, 12(3).
+
+\bibitem[\protect\citename{Willem~Bonaffé}2023]{primarypaper}
+Tim~Coulson Willem~Bonaffé.
+\newblock 2023.
+\newblock Fast fitting of neural ordinary differential equations by bayesian
+  neural gradient matching to infer ecological interactions from time-series
+  data.
+\newblock {\em Methods in Ecology and Evolution}, 14(6).
+
+\end{thebibliography}
